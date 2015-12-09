@@ -1,5 +1,7 @@
 SpaceShip peaches= new SpaceShip();
 
+boolean right, left, up, down; 
+
 public void setup() 
 {
   size(500,500);
@@ -11,24 +13,58 @@ public void draw()
     peaches.move();
     peaches.show();
 
+    if (up==true){
+      peaches.accelerate(.2);
+    }
+    if(down==true){
+      peaches.accelerate(-.2);
+    }
+    if(left==true){
+      peaches.rotate(-10);
+    }
+    if(right==true){
+      peaches.rotate(10);
+    }
 
 
 }
 
-void keyPressed(){
+public void keyPressed(){
 
   if (key=='w'){
-    peaches.accelerate(5);
+    up=true;
   }
   if (key=='s'){
-    peaches.accelerate(-5);
+    down=true;
   }
 
   if (key=='a'){
-    peaches.rotate(-10);
+    left=true;
   }
   if (key=='d'){
-    peaches.rotate(10);
+    right=true;
+  }
+  if (key=='h'){
+    peaches.setX((int)(Math.random()*500));
+    peaches.setY((int)(Math.random()*500));
+    peaches.setDirectionX(0);
+    peaches.setDirectionY(0);
+    peaches.setPointDirection((int)(Math.random()*10));
+  }
+}
+
+public void keyReleased(){ 
+  if (key=='w'){
+    up=false;
+  }
+  if (key=='s'){
+    down=false;
+  }
+  if (key=='a'){
+    left=false;
+  }
+  if (key=='d'){
+    right=false;
   }
 }
 
