@@ -1,16 +1,83 @@
-//your variable declarations here
+SpaceShip peaches= new SpaceShip();
+
 public void setup() 
 {
-  //your code here
+  size(500,500);
 }
+
 public void draw() 
 {
-  //your code here
+    background(0);
+    peaches.move();
+    peaches.show();
+
+
+
 }
-class SpaceShip //extends Floater  
+
+void keyPressed(){
+
+  if (key=='w'){
+    peaches.accelerate(5);
+  }
+  if (key=='s'){
+    peaches.accelerate(-5);
+  }
+
+  if (key=='a'){
+    peaches.rotate(-10);
+  }
+  if (key=='d'){
+    peaches.rotate(10);
+  }
+}
+
+class SpaceShip extends Floater  
 {   
-    //your code here
+    public SpaceShip (){
+      corners=4;
+      int [] xEdge = {-8, 16,-8, -2};
+      int [] yEdge = {-8, 0, 8,0};
+      xCorners = xEdge;
+      yCorners= yEdge;
+      myColor=255;
+      myCenterX=(250);
+      myCenterY=(250);
+      myDirectionX=0;
+    }
+
+    public void setX (int x){
+      myCenterX=x;
+    }
+    public int getX(){
+      return (int) (myCenterX);
+    }
+    public void setY (int y) {
+      myCenterY=y;
+    }
+    public int getY (){
+      return (int)(myCenterY);
+    }
+    public void setDirectionX(double x){
+      myDirectionX=x;
+    }
+    public double getDirectionX(){
+      return myDirectionX;
+    }
+    public void setDirectionY(double y){
+      myDirectionY=y;
+    }
+    public double getDirectionY(){
+      return myDirectionY;
+    }
+    public void setPointDirection(int degrees){
+      myPointDirection=degrees;
+    }
+    public double getPointDirection(){
+      return myPointDirection;
+    }
 }
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
