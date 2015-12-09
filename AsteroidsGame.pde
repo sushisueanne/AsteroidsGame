@@ -2,7 +2,7 @@ SpaceShip peaches= new SpaceShip();
 
 boolean right, left, up, down; 
 
-stars [] tubbs = new stars[300];
+stars [] tubbs = new stars[250];
 
 public void setup() 
 {
@@ -33,7 +33,7 @@ public void draw()
     }
 
     for (int i=0; i<tubbs.length; i++){
-      tubbs[i].draw();
+      tubbs[i].show();
     } 
 
 }
@@ -200,16 +200,16 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 } 
 
-public class stars {
+class stars {
   int starX, starY;
   public stars (){
     starX=(int)(Math.random()*501);
     starY=(int)(Math.random()*501);
   }
 
-  public void draw (){
+  public void show (){
     fill(255);
-    ellipse(starX,starY,3,3);
+    ellipse(starX,starY,1,1);
   }
 
 }
