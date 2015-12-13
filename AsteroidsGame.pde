@@ -3,6 +3,7 @@ boolean right, left, up, down;
 ArrayList<Asteroids> freds = new ArrayList<Asteroids>();
 stars [] tubbs = new stars[250];
 
+Bullets pickle= new Bullets;
 public void setup() 
 {
   size(600,600);
@@ -270,6 +271,54 @@ class Asteroids extends Floater{
       super.move();
     }
 }
+
+class Bullets extends Floater{
+  Bullets(SpaceShip theShip){
+    myColor=200;
+    myCenterY=theShip.getY();
+    myCenterX=theShip.getX();
+    myPointDirection=theShip.getPointDirection();
+    double dRadians= myPointDirection*(Math.PI/180);
+    myDirectionX= 5*Math.cos(dRadians)+ theShip.getDirectionX;
+    myDirectionY= 5*Math.sin(dRadians) + theShip.getDirectionY;
+  }
+  public void setX (int x){
+      myCenterX=x;
+    }
+    public int getX(){
+      return (int) (myCenterX);
+    }
+    public void setY (int y) {
+      myCenterY=y;
+    }
+    public int getY (){
+      return (int)(myCenterY);
+    } 
+    public void setDirectionX(double x){
+      myDirectionX=x;
+    }
+    public double getDirectionX(){
+      return myDirectionX;
+    }
+    public void setDirectionY(double y){
+      myDirectionY=y;
+    }
+    public double getDirectionY(){
+      return myDirectionY;
+    }
+    public void setPointDirection(int degrees){
+      myPointDirection=degrees;
+    }
+    public double getPointDirection(){
+      return myPointDirection;
+    }
+    public void show(){
+      fill(myColor);
+      stroke(myColor);
+      ellipse((float)myCenterX, (float) myCenterY, 3, 3 );
+    }
+}
+
 
 
 class stars {
