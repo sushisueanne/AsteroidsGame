@@ -1,15 +1,19 @@
 SpaceShip peaches= new SpaceShip();
-
 boolean right, left, up, down; 
-
+ArrayList<Asteroids> freds = new ArrayList<Asteroids>();
 stars [] tubbs = new stars[250];
 
 public void setup() 
 {
-  size(500,500);
-
+  size(600,600);
+//stars
   for (int i=0; i<tubbs.length; i++){
     tubbs[i]=new stars();
+  }
+
+//asteroids
+  for(int i=0; i<9; i++){
+    freds.add(new Asteroids());
   }
 }
 
@@ -20,10 +24,10 @@ public void draw()
     peaches.show();
 
     if (up==true){
-      peaches.accelerate(.2);
+      peaches.accelerate(.5);
     }
     if(down==true){
-      peaches.accelerate(-.2);
+      peaches.accelerate(-.5);
     }
     if(left==true){
       peaches.rotate(-10);
@@ -34,8 +38,22 @@ public void draw()
 
     for (int i=0; i<tubbs.length; i++){
       tubbs[i].show();
-    } 
-
+    }
+    
+   if (freds.size()<2){
+      for (int i=0; i<9; i++){
+       freds.add(i, new Asteroids());
+       }
+   }
+   
+   for (int i=0; i<freds.size()-1; i++){     
+        if ( dist(peaches.getX(), peaches.getY(), freds.get(i).getX(), freds.get(i).getY())<40 ){
+          freds.remove(i);
+       } 
+       
+      freds.get(i).move();
+      freds.get(i).show();
+      }
 }
 
 public void keyPressed(){
@@ -81,10 +99,10 @@ class SpaceShip extends Floater
 {   
     public SpaceShip (){
       corners=4;
-      int [] xEdge = {-8, 16,-8, -2};
-      int [] yEdge = {-8, 0, 8,0};
-      xCorners = xEdge;
-      yCorners= yEdge;
+      int [] xSEdge = {-8, 16,-8, -2};
+      int [] ySEdge = {-8, 0, 8,0};
+      xCorners = xSEdge;
+      yCorners= ySEdge;
       myColor=255;
       myCenterX=(250);
       myCenterY=(250);
@@ -200,11 +218,65 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 } 
 
+class Asteroids extends Floater{
+  int asteroidRotate;
+  public Asteroids() {
+    corners=6;
+    int [] xAEdge= {10, 12, 19, 20, 24,27};
+    int [] yAEdge= {-20, 13, -30, 19, -20, 25};
+    xCorners= xAEdge;
+    yCorners= yAEdge;
+    myColor= 250;
+    myCenterY=(double)(Math.random()*675)-225;
+    myCenterX=(double)(Math.random()*675)-225;
+    myDirectionX=(double)(Math.random()*5)-2;
+    myDirectionY=(double)(Math.random()*5)-2;
+    myPointDirection=(double)(Math.random()*361);
+    asteroidRotate=(int)(Math.random()*14)-7;
+  }
+
+  public void setX (int x){
+      myCenterX=x;
+    }
+    public int getX(){
+      return (int) (myCenterX);
+    }
+    public void setY (int y) {
+      myCenterY=y;
+    }
+    public int getY (){
+      return (int)(myCenterY);
+    } 
+    public void setDirectionX(double x){
+      myDirectionX=x;
+    }
+    public double getDirectionX(){
+      return myDirectionX;
+    }
+    public void setDirectionY(double y){
+      myDirectionY=y;
+    }
+    public double getDirectionY(){
+      return myDirectionY;
+    }
+    public void setPointDirection(int degrees){
+      myPointDirection=degrees;
+    }
+    public double getPointDirection(){
+      return myPointDirection;
+    }
+    public void move(){
+      rotate(asteroidRotate);
+      super.move();
+    }
+}
+
+
 class stars {
   int starX, starY;
   public stars (){
-    starX=(int)(Math.random()*501);
-    starY=(int)(Math.random()*501);
+    starX=(int)(Math.random()*600);
+    starY=(int)(Math.random()*600);
   }
 
   public void show (){
